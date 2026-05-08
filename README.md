@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# PhotoKeep
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Photo digitization service — Vite + React + TypeScript + Tailwind + Supabase + Vercel.
 
-Currently, two official plugins are available:
+## ⚠️ Supabase URL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Your `VITE_SUPABASE_URL` must be the project root — **without** `/rest/v1/`:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+VITE_SUPABASE_URL=https://piupngxdwbkxfzatdvzv.supabase.co
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The `supabase-js` client builds its own endpoint paths internally.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Setup
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**1. Install dependencies**
+
+```bash
+npm install
 ```
+
+**2. Configure environment**
+
+```bash
+cp .env.example .env
+# Edit .env and fill in your values
+```
+
+**3. Create Supabase table** (run in the Supabase SQL editor)
+
+```sql
+create table contact_responses (
+  id uuid default gen_random_uuid() primary key,
+  name text,
+  phone text,
+  email text,
+  message text,
+  created_at timestamptz default now()
+);
+```
+
+**4. Set up CallMeBot WhatsApp**
+
+- Send `I allow callmebot to send me messages` to **+34 644 35 79 00** on WhatsApp
+- You'll receive your API key in reply
+- Add your phone number (with country code, no `+`) and the API key to `.env`
+
+**5. Add images to `public/assets/`**
+
+| File | Used on |
+|---|---|
+| `photo-stack.jpg` | Home hero background |
+| `holding.jpg` | Services page left column |
+| `stack_of_photos.webp` | Contact page left column |
+| `photos.jpeg` | Contact page fallback image |
+| `shutter.png` | Navbar logo icon |
+| `matteo.jpg` | About page polaroid |
+
+Images are optional — pages render gracefully without them.
+
+**6. Run locally**
+
+```bash
+npm run dev
+```
+
+**7. Deploy to Vercel**
+
+- Push to GitHub
+- Connect repo on [vercel.com](https://vercel.com)
+- Add all four `VITE_` environment variables in the Vercel dashboard
+- Deploy — `vercel.json` handles SPA routing automatically
