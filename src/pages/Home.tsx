@@ -1,17 +1,13 @@
 import { motion } from 'framer-motion'
+import photoStackImg from '../assets/photo-stack.jpg'
 
 export default function Home() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="relative flex min-h-[calc(100vh-64px)] flex-col items-center justify-center overflow-hidden"
-    >
+    <div className="relative flex min-h-[calc(100vh-64px)] flex-col items-center justify-center overflow-hidden">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/assets/photo-stack.jpg')" }}
+        style={{ backgroundImage: `url(${photoStackImg})`, filter: 'grayscale(100%)' }}
       />
       {/* Dark overlay at 51% opacity */}
       <div
@@ -63,6 +59,6 @@ export default function Home() {
           <polyline points="6 9 12 15 18 9" />
         </svg>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import holdingImg from '../assets/holding.jpg'
 
 const SERVICES = [
   {
@@ -30,12 +31,7 @@ const itemVariants = {
 
 export default function Services() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-screen bg-[#141414] px-4 py-20"
-    >
+    <div className="min-h-screen bg-[#141414] px-4 py-20">
       <div className="mx-auto flex max-w-6xl flex-col items-start gap-16 md:flex-row">
         {/* Left column */}
         <div className="w-full flex-shrink-0 md:w-80">
@@ -48,7 +44,7 @@ export default function Services() {
             Services
           </h2>
           <motion.img
-            src="/assets/holding.jpg"
+            src={holdingImg}
             alt="Holding photos"
             className="w-full rounded-2xl object-cover"
             initial={{ opacity: 0, y: 40 }}
@@ -97,6 +93,6 @@ export default function Services() {
           ))}
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

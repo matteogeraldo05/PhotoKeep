@@ -1,31 +1,50 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import shutterImg from '../assets/shutter.png'
 
 const NAV_LINKS = [
-  { to: '/about', label: 'ABOUT' },
-  { to: '/services', label: 'SERVICES' },
-  { to: '/reviews', label: 'REVIEWS' },
-  { to: '/faq', label: 'FAQ' },
-  { to: '/pricing', label: 'PRICING' },
-  { to: '/contact', label: 'CONTACT' },
+  { href: '#about', id: 'about', label: 'ABOUT' },
+  { href: '#services', id: 'services', label: 'SERVICES' },
+  { href: '#reviews', id: 'reviews', label: 'REVIEWS' },
+  { href: '#faq', id: 'faq', label: 'FAQ' },
+  { href: '#pricing', id: 'pricing', label: 'PRICING' },
+  { href: '#contact', id: 'contact', label: 'CONTACT' },
 ]
+
+const SECTION_IDS = ['home', 'about', 'services', 'reviews', 'faq', 'pricing', 'contact']
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('home')
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = []
+
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id)
+        },
+        { rootMargin: '-40% 0px -55% 0px', threshold: 0 },
+      )
+      observer.observe(el)
+      observers.push(observer)
+    })
+
+    return () => observers.forEach((o) => o.disconnect())
+  }, [])
 
   return (
     <nav className="sticky top-0 z-50 bg-[#141414]">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <a href="#home" className="flex items-center gap-2">
           <img
-            src="/assets/shutter.png"
+            src={shutterImg}
             alt="PhotoKeep"
             className="h-8 w-8 object-contain"
-            onError={(e) => {
-              ;(e.target as HTMLImageElement).style.display = 'none'
-            }}
           />
           <span
             className="text-xl font-bold text-white"
@@ -33,21 +52,28 @@ export default function Navbar() {
           >
             PhotoKeep
           </span>
-        </Link>
+        </a>
 
         {/* Desktop links */}
         <div className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="group relative text-sm font-semibold tracking-widest text-white"
-              style={{ fontFamily: 'DM Sans, sans-serif' }}
-            >
-              {l.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {NAV_LINKS.map((l) => {
+            const isActive = activeSection === l.id
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className="group relative text-sm font-semibold tracking-widest text-white"
+                style={{ fontFamily: 'DM Sans, sans-serif' }}
+              >
+                {l.label}
+                <span
+                  className={`absolute -bottom-0.5 left-0 h-px bg-white transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                />
+              </a>
+            )
+          })}
         </div>
 
         {/* Hamburger button */}
@@ -88,15 +114,17 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-4 px-4 py-6">
               {NAV_LINKS.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
+                <a
+                  key={l.href}
+                  href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-sm font-semibold tracking-widest text-white"
+                  className={`text-sm font-semibold tracking-widest transition-colors ${
+                    activeSection === l.id ? 'text-white underline' : 'text-white/70'
+                  }`}
                   style={{ fontFamily: 'DM Sans, sans-serif' }}
                 >
                   {l.label}
-                </Link>
+                </a>
               ))}
             </div>
           </motion.div>

@@ -1,27 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Layout from './components/Layout'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import FAQ from './pages/FAQ'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Home from './pages/Home'
-import Pricing from './pages/Pricing'
-import Reviews from './pages/Reviews'
+import About from './pages/About'
 import Services from './pages/Services'
+import Reviews from './pages/Reviews'
+import FAQ from './pages/FAQ'
+import Pricing from './pages/Pricing'
+import Contact from './pages/Contact'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="services" element={<Services />} />
-          <Route path="reviews" element={<Reviews />} />
-          <Route path="faq" element={<FAQ />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="contact" element={<Contact />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <div className="flex min-h-screen flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <section id="home"><Home /></section>
+        <section id="about"><About /></section>
+        <section id="services"><Services /></section>
+        <section id="reviews"><Reviews /></section>
+        <section id="faq"><FAQ /></section>
+        <section id="pricing"><Pricing /></section>
+        <section id="contact"><Contact /></section>
+      </main>
+      <Footer />
+    </div>
   )
 }

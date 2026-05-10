@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
 
 interface FaqItem {
   q: string
@@ -96,13 +95,13 @@ export default function FAQ() {
                 {faq.a}
               </p>
               {faq.link && (
-                <Link
-                  to={faq.link.to}
+                <a
+                  href={`#${faq.link.to.replace('/', '')}`}
                   className="mt-4 inline-block text-white underline hover:text-[#9b9b9b]"
                   style={{ fontFamily: 'DM Sans, sans-serif' }}
                 >
                   {faq.link.label}
-                </Link>
+                </a>
               )}
             </motion.div>
           ))}

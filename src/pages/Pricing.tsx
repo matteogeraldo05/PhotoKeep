@@ -64,12 +64,7 @@ const cardVariants = {
 
 export default function Pricing() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-screen bg-white px-4 py-20"
-    >
+    <div className="min-h-screen bg-white px-4 py-20">
       <div className="mx-auto max-w-4xl">
         <h2
           className="mb-12 font-bold text-black"
@@ -147,6 +142,6 @@ export default function Pricing() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

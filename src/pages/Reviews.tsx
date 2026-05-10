@@ -40,12 +40,7 @@ function StarRating({ stars }: { stars: number }) {
 
 export default function Reviews() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-screen bg-white px-4 py-20"
-    >
+    <div className="min-h-screen bg-white px-4 py-20">
       <div className="mx-auto max-w-6xl">
         <h2
           className="mb-16 text-center font-bold text-[#141414]"
@@ -84,6 +79,6 @@ export default function Reviews() {
           ))}
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

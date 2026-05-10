@@ -1,13 +1,9 @@
 import { motion } from 'framer-motion'
+import matteoImg from '../assets/matteo.jpg'
 
 export default function About() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-screen bg-[#141414] px-4 py-20"
-    >
+    <div className="min-h-screen bg-[#141414] px-4 py-20">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-16 md:flex-row">
         {/* Polaroid */}
         <motion.div
@@ -20,7 +16,7 @@ export default function About() {
         >
           <div className="bg-white p-3 pb-14 shadow-2xl" style={{ width: '240px' }}>
             <img
-              src="/assets/matteo.jpg"
+              src={matteoImg}
               alt="Matteo"
               className="h-56 w-full object-cover"
               onError={(e) => {
@@ -82,6 +78,6 @@ export default function About() {
           </p>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

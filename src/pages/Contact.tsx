@@ -1,6 +1,8 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
+import stackOfPhotosImg from '../assets/stack_of_photos.webp'
+import photosImg from '../assets/photos.jpeg'
 
 interface FormData {
   name: string
@@ -70,12 +72,7 @@ export default function Contact() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#141414]"
-    >
+    <div className="bg-[#141414]">
       <div className="mx-auto max-w-6xl px-4 py-20">
         <div className="flex flex-col gap-16 md:flex-row">
           {/* Left column */}
@@ -104,12 +101,12 @@ export default function Contact() {
               we'll get back to you as soon as possible
             </p>
             <img
-              src="/assets/stack_of_photos.webp"
+              src={stackOfPhotosImg}
               alt="Stack of photos"
               className="w-full rounded-2xl object-cover"
               onError={(e) => {
                 const img = e.target as HTMLImageElement
-                img.src = '/assets/photos.jpeg'
+                img.src = photosImg
                 img.onerror = () => {
                   img.style.display = 'none'
                 }
@@ -246,29 +243,6 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Contact footer bar */}
-      <div className="border-t border-white/10 px-4 py-6">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 md:flex-row">
-          <span
-            className="font-semibold text-white"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
-          >
-            Further Questions?
-          </span>
-          <span
-            className="text-[#9b9b9b]"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
-          >
-            Email Address: Matteodeangelisgerado@gmail.com
-          </span>
-          <span
-            className="text-white"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
-          >
-            Phone Number: +1(647)830-1540
-          </span>
-        </div>
-      </div>
-    </motion.div>
+    </div>
   )
 }

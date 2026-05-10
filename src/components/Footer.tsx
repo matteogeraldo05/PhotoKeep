@@ -1,12 +1,10 @@
-import { Link } from 'react-router-dom'
-
 const FOOTER_LINKS = [
-  { to: '/about', label: 'About' },
-  { to: '/services', label: 'Services' },
-  { to: '/reviews', label: 'Reviews' },
-  { to: '/faq', label: 'FAQ' },
-  { to: '/pricing', label: 'Pricing' },
-  { to: '/contact', label: 'Contact' },
+  { href: '#about', label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#reviews', label: 'Reviews' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#pricing', label: 'Pricing' },
+  { href: '#contact', label: 'Contact' },
 ]
 
 export default function Footer() {
@@ -21,14 +19,14 @@ export default function Footer() {
         </p>
         <div className="flex flex-wrap justify-center gap-6">
           {FOOTER_LINKS.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
+            <a
+              key={l.href}
+              href={l.href}
               className="text-sm text-[#9b9b9b] transition-colors hover:text-white"
               style={{ fontFamily: 'DM Sans, sans-serif' }}
             >
               {l.label}
-            </Link>
+            </a>
           ))}
         </div>
       </div>
