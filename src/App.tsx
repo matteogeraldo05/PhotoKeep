@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -7,8 +8,9 @@ import Reviews from './pages/Reviews'
 import FAQ from './pages/FAQ'
 import Pricing from './pages/Pricing'
 import Contact from './pages/Contact'
+import Admin from './pages/Admin'
 
-export default function App() {
+function MainSite() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
@@ -23,5 +25,16 @@ export default function App() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin" element={<Admin />} />
+        <Route path="*" element={<MainSite />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
